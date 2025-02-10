@@ -20,6 +20,8 @@ origins = [
     "http://localhost:3000",  # Permitir o frontend React local
     "http://localhost",  # Permitir localhost
     "http://localhost:5173",  # Caso esteja rodando no Vite
+    "https://kauebrandao.github.io",  # Permitir o domínio do seu site no GitHub Pages
+    # Adicione outros domínios conforme necessário
 ]
 
 app.add_middleware(
@@ -29,6 +31,7 @@ app.add_middleware(
     allow_methods=["*"],  # Permitir qualquer método (GET, POST, etc.)
     allow_headers=["*"],  # Permitir qualquer cabeçalho
 )
+
 
 class TextoEntrada(BaseModel):
     texto: str
