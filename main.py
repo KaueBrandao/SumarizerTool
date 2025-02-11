@@ -32,11 +32,11 @@ app.add_middleware(
     allow_headers=["*"],  # Permitir qualquer cabeçalho
 )
 
-
 class TextoEntrada(BaseModel):
     texto: str
+    limite_palavras: int = 100  # Valor padrão de 100 palavras
 
-def resumir_texto_spacy(texto, limite_palavras=100):
+def resumir_texto_spacy(texto, limite_palavras):
     doc = nlp(texto)
 
     palavras_importantes = {}
@@ -69,7 +69,7 @@ async def resumir_texto(dados: TextoEntrada):
     if not dados.texto.strip():
         raise HTTPException(status_code=400, detail="Texto não pode estar vazio.")
 
-    resumo, palavras_chave = resumir_texto_spacy(dados.texto)
+    resumo, palavras_chave = resumir_texto_spacy(dados.texto, dados.limite_palavras)
     return {"resumo": resumo, "palavras_chave": palavras_chave}
 
 if __name__ == "__main__":
